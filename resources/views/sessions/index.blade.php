@@ -22,7 +22,7 @@
             <tbody>
             @foreach($sessions as $session)
             <tr>
-                <td>{{ $session->title }}</td>
+                <td><a href="{{ route('sessions.show', $session->id) }}">{{ $session->title }}</a></td>
                 <td>{{ $session->comment }}</td>
                 <td>
                     <a href="{{ route('sessions.edit', $session->id) }}" class="btn btn-sm btn-outline-primary">
