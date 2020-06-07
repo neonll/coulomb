@@ -4,13 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Session extends Model
+class Point extends Model
 {
     protected $guarded = [];
 
-    public function points()
+    public function session()
     {
-        return $this->hasMany('App\Point');
+        return $this->belongsTo('App\Session');
     }
-
 }
