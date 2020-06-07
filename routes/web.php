@@ -18,4 +18,7 @@ Route::get('/', function () {
     return view('layout.app');
 });
 
+Route::get('sessions/checkFile', 'SessionController@checkFile');
+Route::post('sessions/deleteFile', 'SessionController@deleteFile');
+Route::post('sessions/putFile', 'SessionController@putFile');
 Route::resource('sessions', 'SessionController');
