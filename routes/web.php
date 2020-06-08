@@ -21,4 +21,5 @@ Route::get('/', function () {
 Route::get('sessions/checkFile', 'SessionController@checkFile');
 Route::post('sessions/deleteFile', 'SessionController@deleteFile');
 Route::post('sessions/putFile', 'SessionController@putFile');
+Route::get('sessions/{session}/getAjaxPoints/{lastload?}', 'SessionController@getAjaxPoints');
 Route::resource('sessions', 'SessionController');

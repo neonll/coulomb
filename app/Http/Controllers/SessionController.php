@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Session;
+use Carbon\Carbon;
 use File;
 use Illuminate\Http\Request;
 
@@ -157,5 +158,34 @@ class SessionController extends Controller
         }
         else
             return 0;
+    }
+
+    /**
+     * Get points for specified session. With lastload or all
+     *
+     * @param Session     $session
+     * @param String|null $lastload
+     *
+     * @return array
+     */
+    public function getAjaxPoints(Session $session, String $lastload = null)
+    {
+        if (is_null($lastload) || $lastload == 'undefined')
+            $sessionPoints = $session->points;
+        else
+            $sessionPoints = $session->points()->where('datetime', '>', Carbon::createFromTimestampMs($lastload))->get();
+
+        $points = [];
+        foreach ($sessionPoints as $point)
+        {
+            $points[] = [
+                'date' => $point->datetime->format('Y-m-d H:i:s'),
+                'v' => $point->v,
+                'a' => $point->a,
+                'mode' => $point->mode,
+            ];
+        }
+
+        return $points;
     }
 }
