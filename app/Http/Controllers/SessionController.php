@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Point;
 use App\Session;
 use Carbon\Carbon;
 use File;
@@ -159,6 +160,19 @@ class SessionController extends Controller
         {
             return Session::findOrFail($session_id);
         }
+    }
+
+    public function getCurrentState()
+    {
+        $data = [];
+
+//        $session = $this->getCurrentSession();
+//        $state = Point::latest()->first();
+
+        $data['session'] = $this->getCurrentSession();
+        $data['state'] = Point::latest()->first();
+
+        return collect($data);
     }
 
     /**

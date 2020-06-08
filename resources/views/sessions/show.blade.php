@@ -5,6 +5,10 @@
 @endsection
 
 @section('title-buttons')
+    <div class="m-auto text-success font-weight-bolder"><span id="span_v">--.--</span> В</div>
+    &nbsp;
+    <div class="m-auto text-danger font-weight-bolder"><span id="span_a">--.--</span> А</div>
+    &nbsp;
     <div class="m-auto">Запись <span id="span_state"></span></div>
     &nbsp;
     <button class="btn btn-sm btn-outline-success button_start"><i class="fa fa-play"></i></button>
@@ -33,7 +37,10 @@
         var State = 0;
 
         function checkState() {
-            $.get("/sessions/getCurrentSession", function (session) {
+            $.get("/sessions/getCurrentState", function (data) {
+                var session = data.session;
+                var point = data.state ? data.state : null;
+
                 if (session.id != 0) {
                     $('.button_start').attr('disabled', 'disabled');
                     $('.button_stop').removeAttr('disabled');
@@ -44,6 +51,16 @@
                     $('.button_start').removeAttr('disabled');
                     $('#span_state').text('остановлена');
                     State = 0;
+                }
+
+                if (point) {
+                    if (moment().diff(moment(point.datetime), 'seconds') < 30) {
+                        $('#span_v').text(point.v);
+                        $('#span_a').text(point.a);
+                    } else {
+                        $('#span_v').text('--.--');
+                        $('#span_a').text('--.--');
+                    }
                 }
 
             });
