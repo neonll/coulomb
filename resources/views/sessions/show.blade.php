@@ -33,11 +33,11 @@
         var State = 0;
 
         function checkState() {
-            $.get("/sessions/checkFile", function (state) {
-                if (state == 1) {
+            $.get("/sessions/getCurrentSession", function (session) {
+                if (session.id != 0) {
                     $('.button_start').attr('disabled', 'disabled');
                     $('.button_stop').removeAttr('disabled');
-                    $('#span_state').text('запущена');
+                    $('#span_state').html('запущена (<a href="{{ route('sessions.index') }}/' + session.id + '">' + session.title + '</a>)');
                     State = 1;
                 } else {
                     $('.button_stop').attr('disabled', 'disabled');

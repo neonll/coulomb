@@ -126,6 +126,42 @@ class SessionController extends Controller
     }
 
     /**
+     * Returns current session_id or -1 of absent
+     *
+     * @return int|string
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    public function getFile()
+    {
+        if ($this->checkFile() == 1)
+            return File::get(app()->storagePath().'/app/session');
+        else
+            return -1;
+    }
+
+    /**
+     * Returns current Session
+     *
+     * @return mixed
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    public function getCurrentSession()
+    {
+        $session_id = $this->getFile();
+
+        if ($session_id == -1)
+        {
+            $session = new Session();
+            $session->id = 0;
+            return $session;
+        }
+        else
+        {
+            return Session::findOrFail($session_id);
+        }
+    }
+
+    /**
      * Deletes /storage/app/session file
      *
      * @param Request $request
