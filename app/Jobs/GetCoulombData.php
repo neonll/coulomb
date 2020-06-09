@@ -45,6 +45,8 @@ class GetCoulombData implements ShouldQueue
 
         $point->session_id = $this->session_id;
 
+        $point->status = $data['prs'];
+
         switch (substr($data['prs'], 0, stripos($data['prs'], '.')))
         {
             case 'АКБ подключена':
@@ -82,6 +84,11 @@ class GetCoulombData implements ShouldQueue
 
         $point->v = preg_replace('/[^0-9\-\.]/', '', $va[0]) ?? 0;
         $point->a = strlen(preg_replace('/[^0-9\-\.]/', '', $va[1])) ? preg_replace('/[^0-9\-\.]/', '', $va[1]) : 0;
+
+        $pnf = explode(' ', $data['pnf']);
+
+
+        $point->ah = strlen($pnf[sizeof($pnf)-1]) ? preg_replace('/[^0-9\-\.]/', '', $pnf[sizeof($pnf)-1]) : 0;
 
         $point->save();
     }

@@ -5,9 +5,13 @@
 @endsection
 
 @section('title-buttons')
+    <div class="m-auto text-secondary font-weight-bolder"><span id="span_status"></span></div>
+    &nbsp;
     <div class="m-auto text-success font-weight-bolder"><span id="span_v">--.--</span> В</div>
     &nbsp;
     <div class="m-auto text-danger font-weight-bolder"><span id="span_a">--.--</span> А</div>
+    &nbsp;
+    <div class="m-auto text-primary font-weight-bolder"><span id="span_ah">--.--</span> Ач</div>
     &nbsp;
     <div class="m-auto">Запись <span id="span_state"></span></div>
     &nbsp;
@@ -57,9 +61,13 @@
                     if (moment().diff(moment(point.datetime), 'seconds') < 30) {
                         $('#span_v').text(point.v);
                         $('#span_a').text(point.a);
+                        $('#span_ah').text(point.ah);
+                        $('#span_status').text(point.status);
                     } else {
                         $('#span_v').text('--.--');
                         $('#span_a').text('--.--');
+                        $('#span_ah').text('--.--');
+                        $('#span_status').text('');
                     }
                 }
 
