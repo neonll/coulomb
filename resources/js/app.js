@@ -9,3 +9,6 @@ window.moment = moment;
 
 const noUiSlider = require('nouislider/distribute/nouislider.min');
 window.noUiSlider = noUiSlider;
+
+const wNumb = require('wnumb/wNumb.min');
+window.wNumb = wNumb;
