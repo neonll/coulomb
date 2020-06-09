@@ -6,3 +6,6 @@ require('moment/locale/ru');
 moment.locale('ru');
 window.moment = moment;
 // moment().format();
+
+const noUiSlider = require('nouislider/distribute/nouislider.min');
+window.noUiSlider = noUiSlider;
