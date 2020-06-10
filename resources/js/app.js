@@ -12,3 +12,6 @@ window.noUiSlider = noUiSlider;
 
 const wNumb = require('wnumb/wNumb.min');
 window.wNumb = wNumb;
+
+const TouchSpin = require('bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min');
+window.TouchSpin = TouchSpin;
