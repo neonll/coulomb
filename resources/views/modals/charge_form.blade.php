@@ -13,25 +13,282 @@
 
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="charge-tab" data-toggle="tab" href="#charge" role="tab"
-                               aria-controls="charge" aria-selected="false">Profile</a>
+                            <a class="nav-link active" id="mainCharge-tab" data-toggle="tab" href="#mainCharge" role="tab"
+                               aria-controls="mainCharge" aria-selected="false">Заряд</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                               aria-controls="contact" aria-selected="false">Contact</a>
+                            <a class="nav-link" id="extraCharge-tab" data-toggle="tab" href="#extraCharge" role="tab"
+                               aria-controls="extraCharge" aria-selected="false">Дозаряд</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="misc-tab" data-toggle="tab" href="#misc" role="tab"
-                               aria-controls="misc" aria-selected="true">Прочее</a>
+                            <a class="nav-link" id="miscCharge-tab" data-toggle="tab" href="#miscCharge" role="tab"
+                               aria-controls="miscCharge" aria-selected="true">Прочее</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active m-4" id="charge" role="tabpanel" aria-labelledby="charge-tab">...</div>
-                        <div class="tab-pane fade m-4" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                        {{-- mainCharge tab start --}}
+                        <div class="tab-pane fade show active m-4" id="mainCharge" role="tabpanel" aria-labelledby="mainCharge-tab">
+                            <div class="row mt-2">
+                                <div class="col-sm-4">
+                                    <div>
+                                        <label class="col-form-label">Максимальное напряжение</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="row align-items-center mt-sm-2">
+                                        <div class="col-sm-6">
+                                            <input type="text" class="input-sm" id="chargeVMaxInput">
+                                        </div>
+                                        <div class="col-sm-6 mt-2 mt-sm-0">
+                                            <div id="chargeVMaxSlider"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-sm-4">
+                                    <div>
+                                        <label class="col-form-label">Начало снижения тока</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="row align-items-center mt-sm-2">
+                                        <div class="col-sm-6">
+                                            <input type="text" class="input-sm" id="chargeVPivotInput">
+                                        </div>
+                                        <div class="col-sm-6 mt-2 mt-sm-0">
+                                            <div id="chargeVPivotSlider"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-sm-4">
+                                    <div>
+                                        <label class="col-form-label">Максимальный ток</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="row align-items-center mt-sm-2">
+                                        <div class="col-sm-6">
+                                            <input type="text" class="input-sm" id="chargeAMaxInput">
+                                        </div>
+                                        <div class="col-sm-6 mt-2 mt-sm-0">
+                                            <div id="chargeAMaxSlider"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="w-100">
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="asymTrigger">
+                                        <label class="custom-control-label" for="asymTrigger">Асимметричный заряд</label>
+                                    </div>
+                                </div>
+                                <div id="asymParamDiv" class="col-sm-12 mt-2 mt-sm-1 d-none">
+                                    <div class="row mt-2">
+                                        <div class="col-sm-4">
+                                            <div>
+                                                <label class="col-form-label">Ток разряда</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="row align-items-center mt-sm-2">
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="input-sm" id="asymADischargeInput">
+                                                </div>
+                                                <div class="col-sm-6 mt-2 mt-sm-0">
+                                                    <div id="asymADischargeSlider"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    <div class="row mt-2">
+                                        <div class="col-sm-4">
+                                            <div>
+                                                <label class="col-form-label">Период заряда</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="row align-items-center mt-sm-2">
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="input-sm" id="asymDurInput">
+                                                </div>
+                                                <div class="col-sm-6 mt-2 mt-sm-0">
+                                                    <div id="asymDurSlider"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                        {{-- misc tab start --}}
-                        <div class="tab-pane fade m-4" id="misc" role="tabpanel" aria-labelledby="misc-tab">
+                                    <div class="row mt-2">
+                                        <div class="col-sm-4">
+                                            <div>
+                                                <label class="col-form-label">Длительность разряд/заряд</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="row align-items-center mt-sm-2">
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="input-sm" id="asymRatioInput">
+                                                </div>
+                                                <div class="col-sm-6 mt-2 mt-sm-0">
+                                                    <div id="asymRatioSlider"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="w-100">
+                            <div class="row mt-3">
+                                <div class="col-sm-4">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="chargeEndType">
+                                        <label class="custom-control-label" for="chargeEndType">Окончание по <span
+                                                id="chargeEndTypeSpan">току</span></label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="row align-items-center" id="chargeEndParamA">
+                                        <div class="col-sm-6">
+                                            <input type="text" class="input-sm" id="chargeEndParamAInput">
+                                        </div>
+                                        <div class="col-sm-6 mt-2 mt-sm-0">
+                                            <div id="chargeEndParamASlider"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2" id="chargeEndParamA2">
+                                <div class="col-sm-4">
+                                    <div>
+                                        <label class="col-form-label">Максимальное время</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="row align-items-center mt-sm-2">
+                                        <div class="col-sm-6">
+                                            <input type="text" class="input-sm" id="chargeEndParamATimeInput">
+                                        </div>
+                                        <div class="col-sm-6 mt-2 mt-sm-0">
+                                            <div id="chargeEndParamATimeSlider"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2 d-none" id="chargeEndParamV">
+                                <div class="col-sm-4">
+                                    <div>
+                                        <label class="col-form-label">Выдержка при напряжении</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="row align-items-center mt-sm-2">
+                                        <div class="col-sm-6">
+                                            <input type="text" class="input-sm" id="chargeEndParamVTimeInput">
+                                        </div>
+                                        <div class="col-sm-6 mt-2 mt-sm-0">
+                                            <div id="chargeEndParamVTimeSlider"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- mainCharge tab end --}}
+
+                        {{-- extraCharge tab start --}}
+                        <div class="tab-pane fade m-4" id="extraCharge" role="tabpanel" aria-labelledby="extraCharge-tab">
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="extraChargeTrigger">
+                                        <label class="custom-control-label" for="extraChargeTrigger">Дозаряд</label>
+                                    </div>
+                                </div>
+                                <div id="extraChargeParamDiv" class="col-sm-12 mt-2 mt-sm-1 d-none">
+                                    <div class="row mt-2">
+                                        <div class="col-sm-4">
+                                            <div>
+                                                <label class="col-form-label">Диапазон напряжений</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="row align-items-center mt-sm-2">
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="input-sm" id="extraChargeV0Input">
+                                                </div>
+                                                <div class="col-sm-6 mt-1 mt-sm-0">
+                                                    <input type="text" class="input-sm" id="extraChargeV1Input">
+                                                </div>
+                                                <div class="col-sm-12 mt-2 mt-sm-2">
+                                                    <div id="extraChargeVSlider"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-sm-4">
+                                            <div>
+                                                <label class="col-form-label">Максимальный ток</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="row align-items-center mt-sm-2">
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="input-sm" id="extraChargeAInput">
+                                                </div>
+                                                <div class="col-sm-6 mt-2 mt-sm-0">
+                                                    <div id="extraChargeASlider"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-sm-4">
+                                            <div>
+                                                <label class="col-form-label">Длительность периода</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="row align-items-center mt-sm-2">
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="input-sm" id="extraChargePeriodInput">
+                                                </div>
+                                                <div class="col-sm-6 mt-2 mt-sm-0">
+                                                    <div id="extraChargePeriodSlider"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-sm-4">
+                                            <div>
+                                                <label class="col-form-label">Продолжительность дозаряда</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="row align-items-center mt-sm-2">
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="input-sm" id="extraChargeTInput">
+                                                </div>
+                                                <div class="col-sm-6 mt-2 mt-sm-0">
+                                                    <div id="extraChargeTSlider"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {{-- extraCharge tab end --}}
+
+                        {{-- miscCharge tab start --}}
+                        <div class="tab-pane fade m-4" id="miscCharge" role="tabpanel" aria-labelledby="miscCharge-tab">
                             {{-- delay start --}}
                             <div class="form-group row">
                                 <div class="col-sm-4">
@@ -97,7 +354,7 @@
                                             <div class="custom-control custom-switch">
                                                 <input type="checkbox" class="custom-control-input" id="preCurType">
                                                 <label class="custom-control-label" for="preCurType">Ток <span
-                                                        id="preCurTypeSpan">испульсный</span></label>
+                                                        id="preCurTypeSpan">импульсный</span></label>
                                             </div>
                                         </div>
                                         <div class="col-sm-8">
@@ -143,7 +400,7 @@
                                         <div class="row mt-2">
                                             <div class="col-sm-4">
                                                 <div>
-                                                    <label class="col-form-label">Длительность импульса</label>
+                                                    <label class="col-form-label">Длительность паузы</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm-8">
@@ -161,6 +418,86 @@
                                 </div>
                             </div>
                             {{-- pre end --}}
+
+                            <hr class="w-100">
+
+                            {{-- post start --}}
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="postChargeTrigger" checked>
+                                        <label class="custom-control-label" for="postChargeTrigger">Хранение</label>
+                                    </div>
+                                </div>
+                                <div id="postChargeParamDiv" class="col-sm-12">
+                                    <div class="row mt-3">
+                                        <div class="col-sm-4">
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" id="postChargeType">
+                                                <label class="custom-control-label" for="postChargeType"><span
+                                                        id="postChargeTypeSpan">Поддержание заряда</span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="postChargeParamStore">
+                                        <div class="row mt-2">
+                                            <div class="col-sm-4">
+                                                <div>
+                                                    <label class="col-form-label">Напряжение</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="row align-items-center mt-sm-2">
+                                                    <div class="col-sm-6">
+                                                        <input type="text" class="input-sm" id="postChargeStoreVInput">
+                                                    </div>
+                                                    <div class="col-sm-6 mt-2 mt-sm-0">
+                                                        <div id="postChargeStoreVSlider"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-sm-4">
+                                                <div>
+                                                    <label class="col-form-label">Ток</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="row align-items-center mt-sm-2">
+                                                    <div class="col-sm-6">
+                                                        <input type="text" class="input-sm" id="postChargeStoreAInput">
+                                                    </div>
+                                                    <div class="col-sm-6 mt-2 mt-sm-0">
+                                                        <div id="postChargeStoreASlider"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div id="postChargeParamRecharge" class="d-none">
+                                        <div class="row mt-2">
+                                            <div class="col-sm-4">
+                                                <div>
+                                                    <label class="col-form-label">Напряжение начала</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="row align-items-center mt-sm-2">
+                                                    <div class="col-sm-6">
+                                                        <input type="text" class="input-sm" id="postChargeRechargeVInput">
+                                                    </div>
+                                                    <div class="col-sm-6 mt-2 mt-sm-0">
+                                                        <div id="postChargeRechargeVSlider"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- post end --}}
                         </div>
                         {{-- misc tab end --}}
                     </div>
