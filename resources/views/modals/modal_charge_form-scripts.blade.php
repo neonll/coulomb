@@ -1,7 +1,13 @@
 @include('modals.fn_initSliderInput')
 @include('modals.fn_initTrigger')
+@include('modals.fn_val')
+@include('modals.fn_chargeData')
 
 <script>
+    $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+
+    $('#modalChargeForm').modal('show');
+
     function initDelay() {
         initSliderInput('delayHours', 'hours');
 
@@ -141,5 +147,84 @@
     initCharge();
     initExtra();
     initMisc();
+
+    const $chargeSelectProfile = $('#modalChargeSelectProfile')
+        .change(function () {
+            let profile_id = $(this).val();
+
+            if (profile_id !== '0') {
+                $.get('/profiles/getProfile/' + profile_id, function (data) {
+                    console.log(data);
+                    $.each(data.data, function (id, val) {
+                        if ($('#' + id)[0].type !== 'checkbox')
+                            $('#' + id).val(val).trigger('change');
+                        else
+                            $('#' + id).prop('checked', val === 'true').trigger('change')
+                    })
+                })
+            }
+        })
+
+    function getChargeProfiles() {
+
+        let options = '<option value="0">Профиль</option>';
+
+        $.get('/profiles/getProfilesList/charge', function (data) {
+            $.each(data, function (id, title) {
+                options += `<option value="${id}">${title}</option>`;
+            })
+
+            $chargeSelectProfile.html(options);
+        })
+    }
+
+    getChargeProfiles();
+
+
+
+    $('#modalChargeFormSubmit').click(function () {
+        let data = chargeData();
+
+        console.log(data);
+    })
+
+    $('#modalChargeSave').click(function () {
+
+        let data = {};
+        $('#formChargeForm').find('input').each(function () {
+            data[$(this).prop('id')] = $(this)[0].type !== 'checkbox' ? $(this).val() : $(this)[0].checked;
+        })
+
+        data.type = 'charge';
+        data._token = '{{ csrf_token() }}';
+
+        (async () => {
+
+            const { value: title } = await Swal.fire({
+                title: 'Введите название',
+
+                input: 'text',
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Необходимо ввести название профиля!'
+                    }
+                },
+                keydownListenerCapture: true,
+                focusConfirm: false
+            })
+
+            if (title) {
+                data.title = title;
+                // console.log(data);
+
+                $.post('/profiles/saveProfile', data, function (result) {
+                    console.log(result);
+                })
+            }
+
+        })()
+
+    })
 
 </script>

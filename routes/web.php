@@ -26,3 +26,7 @@ Route::post('sessions/deleteFile', 'SessionController@deleteFile');
 Route::post('sessions/putFile', 'SessionController@putFile');
 Route::get('sessions/{session}/getAjaxPoints/{lastload?}', 'SessionController@getAjaxPoints');
 Route::resource('sessions', 'SessionController');
+
+Route::post('profiles/saveProfile', 'ProfileController@saveProfile');
+Route::get('profiles/getProfilesList/{type}', 'ProfileController@getProfilesList');
+Route::get('profiles/getProfile/{profile}', 'ProfileController@getProfile');

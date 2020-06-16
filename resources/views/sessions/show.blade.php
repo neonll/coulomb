@@ -38,12 +38,13 @@
     <script src="{{ asset('dist/amcharts4/themes/animated.js') }}"></script>
 
     <script>
-        var State = 0;
+        let State = 0;
+        let chart, dateAxis;
 
         function checkState() {
             $.get("/sessions/getCurrentState", function (data) {
-                var session = data.session;
-                var point = data.state ? data.state : null;
+                const session = data.session;
+                const point = data.state ? data.state : null;
 
                 if (session.id != 0) {
                     $('.button_start').attr('disabled', 'disabled');
@@ -75,21 +76,20 @@
         }
 
         checkState();
-        // updateRanges();
 
-        function updateStateRanges() {
-            checkState();
-            if (State == 1)
-                if (chart.data.length)
-                    updateRanges();
-        }
+        // function updateStateRanges() {
+        //     checkState();
+        //     // if (State == 1)
+        //     //     if (chart.data.length)
+        //     //         updateRanges();
+        // }
 
         window.setInterval(function () {
-            updateStateRanges();
+            checkState();
         }, 5000);
 
         $('.button_start').click(function () {
-            var session_id = {{ $session->id }};
+            const session_id = {{ $session->id }};
             $.post('/sessions/putFile', {'_token': '{{ csrf_token() }}', 'session_id': session_id})
                 .done(function (result) {
                     console.log(result);
@@ -98,7 +98,7 @@
         });
 
         $('.button_stop').click(function () {
-            var session_id = {{ $session->id }};
+            const session_id = {{ $session->id }};
             $.post('/sessions/deleteFile', {'_token': '{{ csrf_token() }}'})
                 .done(function (result) {
                     console.log(result);
@@ -127,6 +127,10 @@
                 return url;
             });
 
+            chart.dataSource.events.on('done', function (ev) {
+                updateRanges();
+            });
+
             // Set input format for the dates
             chart.dateFormatter.inputDateFormat = "yyyy-MM-dd hh:mm:ss";
 
@@ -137,20 +141,11 @@
             dateAxis = chart.xAxes.push(new am4charts.DateAxis());
             dateAxis.renderer.grid.template.location = 0;
             dateAxis.renderer.ticks.template.length = 8;
-            // dateAxis.renderer.ticks.template.strokeOpacity = 0.1;
-            // dateAxis.renderer.grid.template.disabled = true;
-            // dateAxis.renderer.ticks.template.disabled = false;
-            // dateAxis.renderer.ticks.template.strokeOpacity = 0.2;
-            // dateAxis.renderer.minLabelPosition = 0.01;
-            // dateAxis.renderer.maxLabelPosition = 0.99;
-            // dateAxis.keepSelection = true;
-            // dateAxis.minHeight = 30;
 
-            var valueAxisV = chart.yAxes.push(new am4charts.ValueAxis());
+            let valueAxisV = chart.yAxes.push(new am4charts.ValueAxis());
             valueAxisV.tooltip.disabled = true;
             valueAxisV.zIndex = 1;
             valueAxisV.renderer.baseGrid.disabled = true;
-            // valueAxisV.baseValue = 0;
             valueAxisV.height = am4core.percent(50);
 
             valueAxisV.renderer.gridContainer.background.fill = am4core.color("#000000");
@@ -159,14 +154,11 @@
             valueAxisV.renderer.labels.template.verticalCenter = "bottom";
             valueAxisV.renderer.labels.template.padding(2, 2, 2, 2);
 
-            var valueAxisA = chart.yAxes.push(new am4charts.ValueAxis());
+            let valueAxisA = chart.yAxes.push(new am4charts.ValueAxis());
             valueAxisA.tooltip.disabled = true;
-            // valueAxisA.baseValue = 0;
             valueAxisA.height = am4core.percent(50);
             valueAxisA.zIndex = 3;
             valueAxisA.marginTop = 20;
-            // valueAxisA.renderer.opposite = true;
-            // valueAxisA.syncWithAxis = valueAxisV;
             valueAxisA.renderer.baseGrid.disabled = true;
             valueAxisA.renderer.inside = true;
             valueAxisA.renderer.labels.template.verticalCenter = "bottom";
@@ -177,7 +169,7 @@
 
 
 // Create series
-            var seriesV = chart.series.push(new am4charts.LineSeries());
+            let seriesV = chart.series.push(new am4charts.LineSeries());
             seriesV.dataFields.valueY = "v";
             seriesV.dataFields.dateX = "date";
             seriesV.tooltipText = "{v}"
@@ -186,7 +178,7 @@
             // seriesV.minBulletDistance = 15;
             // seriesV.fillOpacity = 0.3;
 
-            var seriesA = chart.series.push(new am4charts.LineSeries());
+            let seriesA = chart.series.push(new am4charts.LineSeries());
             seriesA.dataFields.valueY = "a";
             seriesA.dataFields.dateX = "date";
             seriesA.tooltipText = "{a}"
@@ -217,35 +209,12 @@
             seriesA.tooltip.label.textValign = "middle";
             seriesA.tooltipText = "{a}";
 
-
-// Make bullets grow on hover
-//             var bulletV = seriesV.bullets.push(new am4charts.CircleBullet());
-//             bulletV.circle.strokeWidth = 2;
-//             bulletV.circle.radius = 4;
-//             bulletV.circle.fill = am4core.color("#fff");
-//
-//             var bullethoverV = bulletV.states.create("hover");
-//             bullethoverV.properties.scale = 1.3;
-//
-//             var bulletA = seriesV.bullets.push(new am4charts.CircleBullet());
-//             bulletA.circle.strokeWidth = 2;
-//             bulletA.circle.radius = 4;
-//             bulletA.circle.fill = am4core.color("#fff");
-//
-//             var bullethoverA = bulletA.states.create("hover");
-//             bullethoverA.properties.scale = 1.3;
-
 // Make a panning cursor
             chart.cursor = new am4charts.XYCursor();
             chart.cursor.behavior = "panXY";
             chart.cursor.xAxis = dateAxis;
-            // chart.cursor.snapToSeries = seriesV;
-            // chart.cursor.snapToSeries = seriesA;
 
 // Create vertical scrollbar and place it before the value axis
-//             chart.scrollbarY = new am4core.Scrollbar();
-//             chart.scrollbarY.parent = chart.leftAxesContainer;
-//             chart.scrollbarY.toBack();
             chart.scrollbarY = new am4core.Scrollbar();
             chart.scrollbarY.marginTop = 0;
 
@@ -253,7 +222,6 @@
 // Create a horizontal scrollbar with previe and place it underneath the date axis
             chart.scrollbarX = new am4charts.XYChartScrollbar();
             chart.scrollbarX.series.push(seriesV);
-            // chart.scrollbarX.series.push(seriesA);
             chart.scrollbarX.parent = chart.bottomAxesContainer;
 
             dateAxis.start = 0;
@@ -262,10 +230,10 @@
         }); // end am4core.ready()
 
         function updateRanges() {
-            var mode = 0;
-            var range_started = null;
-            var data = chart.data;
-            var ranges = [];
+            let mode = 0;
+            let range_started = null;
+            let data = chart.data;
+            let ranges = [];
 
             if (data[0].mode != 0) {
                 range_started = data[0].date;
@@ -300,7 +268,7 @@
             dateAxis.axisRanges.clear();
 
             $.each(ranges, function (i, val) {
-                var color = null;
+                let color = null;
 
                 switch (val.mode) {
                     case 3:
@@ -321,14 +289,14 @@
                 }
 
                 if (color) {
-                    var range = dateAxis.axisRanges.create();
+                    let range = dateAxis.axisRanges.create();
                     range.date = val.start;
                     range.endDate = val.end;
                     range.axisFill.fill = am4core.color(color);
                     range.axisFill.fillOpacity = 0.3;
 
-                    var scrollAxisX = chart.scrollbarX.scrollbarChart.xAxes.getIndex(0);
-                    var range2 = scrollAxisX.axisRanges.create();
+                    let scrollAxisX = chart.scrollbarX.scrollbarChart.xAxes.getIndex(0);
+                    let range2 = scrollAxisX.axisRanges.create();
                     range2.date = val.start;
                     range2.endDate = val.end;
                     range2.axisFill.fill = am4core.color(color);
