@@ -31,3 +31,7 @@ Route::post('profiles/saveProfile', 'ProfileController@saveProfile');
 Route::delete('profiles/deleteProfile', 'ProfileController@deleteProfile');
 Route::get('profiles/getProfilesList/{type}', 'ProfileController@getProfilesList');
 Route::get('profiles/getProfile/{profile}', 'ProfileController@getProfile');
+
+Route::post('preferences/save', 'PreferencesController@save');
+
+Route::get('coulomb/getData', 'CoulombController@getData');

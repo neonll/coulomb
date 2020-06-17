@@ -8,14 +8,11 @@
     <div class="collapse navbar-collapse" id="navbarHeader">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <div class="row ml-2 mt-2 mr-2">
-                    <div class="m-auto text-secondary font-weight-bolder"><span id="span_status"></span></div>
-                    &nbsp;
-                    <div class="m-auto text-success font-weight-bolder"><span id="span_v">--.--</span> В</div>
-                    &nbsp;
-                    <div class="m-auto text-danger font-weight-bolder"><span id="span_a">--.--</span> А</div>
-                    &nbsp;
-                    <div class="m-auto text-primary font-weight-bolder"><span id="span_ah">--.--</span> Ач</div>
+                <div class="row ml-0 mt-2 mr-2">
+                    <div class="ml-0 text-warning font-weight-bolder"><span id="span_status"></span></div>
+                    <div class="ml-2 text-success font-weight-bolder"><span id="span_v">--.--</span> В</div>
+                    <div class="ml-2 text-danger font-weight-bolder"><span id="span_a">--.--</span> А</div>
+                    <div class="ml-2 text-primary font-weight-bolder"><span id="span_ah">--.--</span> Ач</div>
                 </div>
             </li>
             <li class="nav-item active">
@@ -23,6 +20,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="javascript:;" data-toggle="modal" data-target="#modalChargeForm">Заряд</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:;" data-toggle="modal" data-target="#modalPreferences">Настройки</a>
             </li>
 
 {{--            <li class="nav-item dropdown">--}}

@@ -54,7 +54,8 @@
 
 </main><!-- /.container -->
 
-@include('modals.modal_charge_form');
+@include('modals.modal_charge_form')
+@include('modals.modal_preferences')
 
 <script src="{{ asset('js/app.js') }}"></script>
 
@@ -106,12 +107,15 @@
                     $('#span_a').text(point.a);
                     $('#span_ah').text(point.ah);
                     $('#span_status').text(point.status);
-                } else {
-                    $('#span_v').text('--.--');
-                    $('#span_a').text('--.--');
-                    $('#span_ah').text('--.--');
-                    $('#span_status').text('');
                 }
+            }
+            else {
+                $.get('/coulomb/getData', function (data) {
+                    $('#span_v').text(data.v);
+                    $('#span_a').text(data.a);
+                    $('#span_ah').text(data.ah);
+                    $('#span_status').text(data.status);
+                })
             }
 
         });
@@ -125,6 +129,7 @@
 </script>
 
 @include('modals.modal_charge_form-scripts')
+@include('modals.modal_preferences-scripts')
 
 @yield('page-scripts')
 

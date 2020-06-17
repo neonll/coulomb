@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Coulomb;
 use App\Point;
 use Carbon\Carbon;
 use File;
@@ -38,57 +39,25 @@ class GetCoulombData implements ShouldQueue
         if (!File::exists(app()->storagePath().'/app/session'))
             return;
 
-        $url = "http://" . env('COULOMB_IP') . "/data.jsn";
-        $data = json_decode(substr(str_replace("\r\n", '', file_get_contents($url)), 3), true);
+        $data = Coulomb::getData();
 
-        $point = new Point();
-
-        $point->session_id = $this->session_id;
-
-        $point->status = $data['prs'];
-
-        switch (substr($data['prs'], 0, stripos($data['prs'], '.')))
+        if ($data->mode >= 0)
         {
-            case 'АКБ подключена':
-                $mode = 0;
-                break;
-            case 'Основной ЗАРЯД':
-                $mode = 4;
-                break;
-            case 'Асимметричный ЗАРЯД':
-                $mode = 3;
-                break;
-            case 'ДОЗАРЯД':
-                $mode = 5;
-                break;
-            case 'Хранение АКБ':
-                $mode = 6;
-                break;
-            case 'Разряд АКБ':
-                $mode = 7;
-                break;
-            default:
-                $mode = -1;
-        }
+            $point = new Point();
 
-        if ($mode >= 0)
-        {
-            $point->mode = $mode;
+            $point->mode = $data->mode;
         }
         else
             return;
 
+        $point->session_id = $this->session_id;
+
+        $point->status = $data->status;
+        $point->v = $data->v;
+        $point->a = $data->a;
+        $point->ah = $data->ah;
+
         $point->datetime = Carbon::now();
-
-        $va = explode('<br/>', $data['pda']);
-
-        $point->v = preg_replace('/[^0-9\-\.]/', '', $va[0]) ?? 0;
-        $point->a = strlen(preg_replace('/[^0-9\-\.]/', '', $va[1])) ? preg_replace('/[^0-9\-\.]/', '', $va[1]) : 0;
-
-        $pnf = explode(' ', $data['pnf']);
-
-
-        $point->ah = strlen($pnf[sizeof($pnf)-1]) ? preg_replace('/[^0-9\-\.]/', '', $pnf[sizeof($pnf)-1]) : 0;
 
         $point->save();
     }
