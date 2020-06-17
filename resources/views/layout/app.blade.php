@@ -108,6 +108,14 @@
                     $('#span_ah').text(point.ah);
                     $('#span_status').text(point.status);
                 }
+                else {
+                    $.get('/coulomb/getData', function (data) {
+                        $('#span_v').text(data.v);
+                        $('#span_a').text(data.a);
+                        $('#span_ah').text(data.ah);
+                        $('#span_status').text(data.status);
+                    })
+                }
             }
             else {
                 $.get('/coulomb/getData', function (data) {
