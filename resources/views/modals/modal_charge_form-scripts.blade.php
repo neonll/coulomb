@@ -17,6 +17,7 @@
 
             if (profile_id != 0) {
                 $('#modalChargeProfileParams').addClass('d-none');
+                $('#modalChargeDeleteProfile').removeClass('d-none');
 
                 $.get('/profiles/getProfile/' + profile_id, function (data) {
                     console.log(data);
@@ -33,6 +34,7 @@
             }
             else {
                 $('#modalChargeProfileParams').removeClass('d-none');
+                $('#modalChargeDeleteProfile').addClass('d-none');
             }
         })
 
@@ -70,6 +72,32 @@
 
     initChargeForm();
 
+    // Действие на кнопку "Удалить профиль"
+    $('#modalChargeDeleteProfile').click(function () {
+        Swal.fire({
+            title: 'Подтвердите удаление',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#e3342f',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Удалить',
+            cancelButtonText: 'Отмена'
+        }).then((result) => {
+            if (result.value) {
+                $.post('/profiles/deleteProfile', {'profile_id': profile_id, '_token': '{{ csrf_token() }}', '_method': 'DELETE'}, function (result) {
+                    console.log(result);
+                    getChargeProfiles();
+                    $('#modalChargeSelectProfile').val('0').trigger('change');
+
+                    Swal.fire(
+                        'Профиль удален!',
+                        '',
+                        'success'
+                    )
+                })
+            }
+        })
+    })
 
     // Действие на кнопку "Запуск"
     $('#modalChargeFormSubmit').click(function () {

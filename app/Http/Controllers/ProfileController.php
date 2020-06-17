@@ -67,4 +67,19 @@ class ProfileController extends Controller
         return $profile;
     }
 
+    /**
+     * Delete specified profile
+     *
+     * @param Request $request
+     *
+     * @return string
+     */
+    public function deleteProfile(Request $request)
+    {
+        if (Profile::findOrFail($request->input('profile_id'))->delete())
+            return 'success';
+        else
+            return 'failed';
+    }
+
 }

@@ -9,8 +9,15 @@
                             <h5 class="modal-title" id="modalChargeFormTitle">Расширенный заряд</h5>
                         </div>
                         <div class="col-lg">
-                            <select class="form-control-sm" id="modalChargeSelectProfile">
-                            </select>
+                            <div class="row">
+                                <div class="col">
+                                    <select class="form-control-sm" id="modalChargeSelectProfile">
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-sm btn-outline-danger d-none" id="modalChargeDeleteProfile"><i class="fa fa-trash-alt"></i></button>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-xl">
                             <div class="row align-items-center mt-xl-0 mt-2" id="modalChargeProfileParams">
