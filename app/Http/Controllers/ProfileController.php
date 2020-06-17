@@ -22,7 +22,8 @@ class ProfileController extends Controller
         {
             if (Profile::findOrFail($request->input('profile_id'))->update(
                 [
-                    'data' => $request->except('_token', 'profile_id', 'type', 'title')
+                    'ah' => $request->input('ah'),
+                    'data' => $request->except('_token', 'profile_id', 'type', 'title', 'ah')
                 ]
             ))
                 $success = true;
@@ -32,7 +33,8 @@ class ProfileController extends Controller
             if (Profile::create([
                 'type' => $request->input('type'),
                 'title' => $request->input('title'),
-                'data' => $request->except('_token', 'type', 'title')
+                'ah' => $request->input('ah'),
+                'data' => $request->except('_token', 'type', 'title', 'ah')
             ]))
                 $success = true;
         }

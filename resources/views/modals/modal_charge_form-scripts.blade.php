@@ -6,7 +6,7 @@
     $.fn.modal.Constructor.prototype._enforceFocus = function() {};
 
     // Для отладки
-    $('#modalChargeForm').modal('show');
+    // $('#modalChargeForm').modal('show');
 
     let profile_id = 0;
 
@@ -20,6 +20,9 @@
 
                 $.get('/profiles/getProfile/' + profile_id, function (data) {
                     console.log(data);
+                    chargeProfileAh = data.ah;
+                    initChargeForm();
+
                     $.each(data.data, function (id, val) {
                         if ($('#' + id)[0].type !== 'checkbox')
                             $('#' + id).val(val).trigger('change');
@@ -79,6 +82,7 @@
     function chargeSave(data) {
         $.post('/profiles/saveProfile', data, function (result) {
             console.log(result);
+            getChargeProfiles();
         })
     }
 
@@ -89,6 +93,8 @@
         $('#formChargeForm').find('input').each(function () {
             data[$(this).prop('id')] = $(this)[0].type !== 'checkbox' ? $(this).val() : $(this)[0].checked;
         })
+
+        data.ah = chargeProfileAh;
 
         data.type = 'charge';
         data._token = '{{ csrf_token() }}';
