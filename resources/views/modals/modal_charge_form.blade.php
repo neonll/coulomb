@@ -10,8 +10,17 @@
                         </div>
                         <div class="col-lg">
                             <select class="form-control-sm" id="modalChargeSelectProfile">
-                                <option value="0">Профиль</option>
                             </select>
+                        </div>
+                        <div class="col-xl">
+                            <div class="row align-items-center mt-xl-0 mt-2" id="modalChargeProfileParams">
+                                <div class="col-sm-6">
+                                    <input type="text" class="input-sm" id="chargeProfileAHInput">
+                                </div>
+                                <div class="col-sm-6 mt-2 mt-sm-0">
+                                    <div id="chargeProfileAHSlider"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,3 +1,5 @@
+@include('modals.fn_val')
+
 <script>
     let chargeData = () => {
         return {

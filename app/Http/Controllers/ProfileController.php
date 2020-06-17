@@ -20,11 +20,8 @@ class ProfileController extends Controller
 
         if ($request->has('profile_id'))
         {
-            if (Profile::update(
-                ['profile_id' => $request->input('profile_id')],
+            if (Profile::findOrFail($request->input('profile_id'))->update(
                 [
-                    'type' => $request->input('type'),
-                    'title' => $request->input('title'),
                     'data' => $request->except('_token', 'profile_id', 'type', 'title')
                 ]
             ))
@@ -43,11 +40,26 @@ class ProfileController extends Controller
         return $success ? 'success' : 'failed';
     }
 
+    /**
+     * Get profiles list by type (id => title)
+     *
+     * @param String $type
+     *
+     * @return mixed
+     */
     public function getProfilesList(String $type)
     {
-        return Profile::charge()->get()->pluck('title', 'id');
+        return Profile::where('type', $type)->get()->pluck('title', 'id');
     }
 
+
+    /**
+     * Get specified profile data
+     *
+     * @param Profile $profile
+     *
+     * @return Profile
+     */
     public function getProfile(Profile $profile)
     {
         return $profile;
