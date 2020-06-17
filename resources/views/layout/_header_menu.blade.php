@@ -7,6 +7,17 @@
 
     <div class="collapse navbar-collapse" id="navbarHeader">
         <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <div class="row ml-2 mt-2 mr-2">
+                    <div class="m-auto text-secondary font-weight-bolder"><span id="span_status"></span></div>
+                    &nbsp;
+                    <div class="m-auto text-success font-weight-bolder"><span id="span_v">--.--</span> В</div>
+                    &nbsp;
+                    <div class="m-auto text-danger font-weight-bolder"><span id="span_a">--.--</span> А</div>
+                    &nbsp;
+                    <div class="m-auto text-primary font-weight-bolder"><span id="span_ah">--.--</span> Ач</div>
+                </div>
+            </li>
             <li class="nav-item active">
                 <a class="nav-link" href="{{ route('sessions.index') }}">Сессии</a>
             </li>
