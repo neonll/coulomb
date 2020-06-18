@@ -18,12 +18,12 @@ class ProfileController extends Controller
     {
         $success = false;
 
-        if ($request->has('profile_id'))
+        if ($request->has('charge_profile_id'))
         {
-            if (Profile::findOrFail($request->input('profile_id'))->update(
+            if (Profile::findOrFail($request->input('charge_profile_id'))->update(
                 [
                     'ah' => $request->input('ah'),
-                    'data' => $request->except('_token', 'profile_id', 'type', 'title', 'ah')
+                    'data' => $request->except('_token', 'charge_profile_id', 'type', 'title', 'ah')
                 ]
             ))
                 $success = true;

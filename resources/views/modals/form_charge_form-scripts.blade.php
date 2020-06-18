@@ -152,12 +152,15 @@
         initPostCharge();
     }
 
-    function initChargeForm() {
-        ah = chargeProfileAh;
-
-        initCharge();
-        initExtra();
-        initMisc();
+    function initModalForm(type) {
+        switch (type) {
+            case 'charge':
+                ah = Profile.charge.ah;
+                initCharge();
+                initExtra();
+                initMisc();
+                break;
+        }
     }
 
 
