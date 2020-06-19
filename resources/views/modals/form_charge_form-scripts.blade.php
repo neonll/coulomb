@@ -20,36 +20,36 @@
         initTrigger('delayTrigger', 'delayHoursDiv');
     }
 
-    function initPre() {
-        initSliderInput('preParamV', 'v');
-        initSliderInput('preParamT', 'minutes');
-        initSliderInput('preCurMax', 'a', {'max': pround(0.1 * ah, 0.05), 'start': pround(0.05 * ah, 0.05)}, {'max': pround(0.1 * ah, 0.05)}, true);
-        initSliderInput('preDurImp', 'seconds');
-        initSliderInput('prePauseImp', 'seconds');
-        initSliderInput('preConstCur', 'a', {'max': pround(0.075 * ah, 0.05), 'start': pround(0.05 * ah, 0.05)}, {'max': pround(0.075 * ah, 0.05)}, true);
+    function initPre(pre = '') {
+        initSliderInput(pre + 'preParamV', 'v');
+        initSliderInput(pre + 'preParamT', 'minutes');
+        initSliderInput(pre + 'preCurMax', 'a', {'max': pround(0.1 * ah, 0.05), 'start': pround(0.05 * ah, 0.05)}, {'max': pround(0.1 * ah, 0.05)}, true);
+        initSliderInput(pre + 'preDurImp', 'seconds');
+        initSliderInput(pre + 'prePauseImp', 'seconds');
+        initSliderInput(pre + 'preConstCur', 'a', {'max': pround(0.075 * ah, 0.05), 'start': pround(0.05 * ah, 0.05)}, {'max': pround(0.075 * ah, 0.05)}, true);
 
-        initTrigger('preTrigger', 'preParamDiv');
-        initTrigger('preType', 'preParamT', 'preParamV', 'времени', 'напряжению');
-        initTrigger('preCurType', 'preParamConst', ['preParamImp', 'preParamImp2'], 'постоянный', 'импульсный');
+        initTrigger(pre + 'preTrigger', pre + 'preParamDiv');
+        initTrigger(pre + 'preType', pre + 'preParamT', pre + 'preParamV', 'времени', 'напряжению');
+        initTrigger(pre + 'preCurType', pre + 'preParamConst', [pre + 'preParamImp', pre + 'preParamImp2'], 'постоянный', 'импульсный');
 
     }
 
-    function initCharge() {
-        initSliderInput('chargeVMax', 'v', {
+    function initCharge(pre = '') {
+        initSliderInput(pre + 'chargeVMax', 'v', {
             'min': 12,
             'max': 16.5,
             'start': 14.8,
             'step': 0.05,
             'decimals': 2
         }, {'min': 12, 'max': 16.5, 'step': 0.05, 'decimals': 2});
-        initSliderInput('chargeVPivot', 'v', {
+        initSliderInput(pre + 'chargeVPivot', 'v', {
             'min': 13.4,
             'max': 14.7,
             'start': 14.2,
             'step': 0.05,
             'decimals': 2
         }, {'min': 13.4, 'max': 14.7, 'step': 0.05, 'decimals': 2});
-        initSliderInput('chargeAMax', 'a', {
+        initSliderInput(pre + 'chargeAMax', 'a', {
             'min': 0.1,
             'max': pround(0.2 * ah, 0.05),
             'start': pround(0.1 * ah, 0.05),
@@ -57,38 +57,38 @@
             'decimals': 2
         }, {'min': 0.1, 'max': pround(0.2 * ah, 0.05), 'step': 0.05, 'decimals': 2}, true);
 
-        initSliderInput('asymADischarge', 'a', {
+        initSliderInput(pre + 'asymADischarge', 'a', {
             'min': 0.05,
             'max': pround(0.03 * ah, 0.05),
             'start': pround(0.01 * ah, 0.05),
             'step': 0.05,
             'decimals': 2
         }, {'min': 0.05, 'max': pround(0.03 * ah, 0.05), 'step': 0.05, 'decimals': 2}, true);
-        initSliderInput('asymDur', 'seconds', {'min': 5, 'max': 25, 'start': 5}, {'min': 5, 'max': 25});
-        initSliderInput('asymRatio', 'percent');
+        initSliderInput(pre + 'asymDur', 'seconds', {'min': 5, 'max': 25, 'start': 5}, {'min': 5, 'max': 25});
+        initSliderInput(pre + 'asymRatio', 'percent');
 
-        initSliderInput('chargeEndParamA', 'a', {
+        initSliderInput(pre + 'chargeEndParamA', 'a', {
             'min': 0.05,
             'max': pround(0.015 * ah, 0.05),
             'start': pround(0.01 * ah, 0.05),
             'step': 0.05,
             'decimals': 2
         }, {'min': 0.05, 'max': pround(0.015 * ah, 0.05), 'step': 0.05, 'decimals': 2}, true);
-        initSliderInput('chargeEndParamATime', 'hours', {'start': 16, 'max': 48}, {'max': 48})
+        initSliderInput(pre + 'chargeEndParamATime', 'hours', {'start': 16, 'max': 48}, {'max': 48})
 
-        initSliderInput('chargeEndParamVTime', 'hours', {'start': 2, 'min': 0, 'max': 6}, {'min': 0, 'max': 6})
+        initSliderInput(pre + 'chargeEndParamVTime', 'hours', {'start': 2, 'min': 0, 'max': 6}, {'min': 0, 'max': 6})
 
-        initTrigger('asymTrigger', 'asymParamDiv');
-        initTrigger('chargeEndType', 'chargeEndParamV', ['chargeEndParamA', 'chargeEndParamA2'], 'напряжению', 'току');
+        initTrigger(pre + 'asymTrigger', pre + 'asymParamDiv');
+        initTrigger(pre + 'chargeEndType', pre + 'chargeEndParamV', [pre + 'chargeEndParamA', pre + 'chargeEndParamA2'], 'напряжению', 'току');
     }
 
-    function initExtra() {
-        initSliderInput('extraChargeA', 'a', {'min': 0.05, 'max': pround(0.12 * ah, 0.05), 'start': pround(0.033 * ah, 0.05)}, {'min': 0.05, 'max': pround(0.12 * ah, 0.05)}, true);
-        initSliderInput('extraChargePeriod', 'seconds', {'start': 20, 'max': 300}, {'max': 300});
-        initSliderInput('extraChargeT', 'hours', {'start': 5, 'max': 240}, {'max': 240})
+    function initExtra(pre = '') {
+        initSliderInput(pre + 'extraChargeA', 'a', {'min': 0.05, 'max': pround(0.12 * ah, 0.05), 'start': pround(0.033 * ah, 0.05)}, {'min': 0.05, 'max': pround(0.12 * ah, 0.05)}, true);
+        initSliderInput(pre + 'extraChargePeriod', 'seconds', {'start': 20, 'max': 300}, {'max': 300});
+        initSliderInput(pre + 'extraChargeT', 'hours', {'start': 5, 'max': 240}, {'max': 240})
 
-        const $inputV = [$('#extraChargeV0Input'), $('#extraChargeV1Input')];
-        const $sliderV = $('#extraChargeVSlider')[0];
+        const $inputV = [$(`#${pre}extraChargeV0Input`), $(`#${pre}extraChargeV1Input`)];
+        const $sliderV = $(`#${pre}extraChargeVSlider`)[0];
 
         if (typeof $sliderV.noUiSlider === 'undefined') {
             noUiSlider.create($sliderV, {
@@ -120,7 +120,7 @@
                 });
         })
 
-        initTrigger('extraChargeTrigger', 'extraChargeParamDiv');
+        initTrigger(pre + 'extraChargeTrigger', pre + 'extraChargeParamDiv');
 
     }
 
@@ -152,6 +152,76 @@
         initPostCharge();
     }
 
+    function initDischarge() {
+        initSliderInput('dischargeV', 'v', {
+            'min': 7.3,
+            'max': 13,
+            'start': 10.7,
+            'step': 0.05,
+            'decimals': 2
+        }, {'min': 7.3, 'max': 13, 'step': 0.05, 'decimals': 2});
+
+        initSliderInput('dischargeA', 'a', {
+            'min': 0.05,
+            'max': pround(0.33 * ah, 0.05),
+            'start': pround(0.05 * ah, 0.05),
+            'step': 0.05,
+            'decimals': 2
+        }, {'min': 0.05, 'max': pround(0.33 * ah, 0.05), 'step': 0.05, 'decimals': 2}, true);
+
+        initSliderInput('dischargePause', 'hours', {
+            'min': 0,
+            'max': 5,
+            'start': 1,
+            'step': 0.5,
+            'decimals': 1
+        }, {'min': 0, 'max': 5, 'step': 0.5, 'decimals': 1});
+
+    }
+
+    function initDischargeExtra() {
+        initSliderInput('dischargeExtraV', 'v', {
+            'min': 0.05,
+            'max': 1,
+            'start': 0.3,
+            'step': 0.05,
+            'decimals': 2
+        }, {'min': 0.05, 'max': 1, 'step': 0.05, 'decimals': 2});
+        initSliderInput('dischargeExtraA', 'a', {
+            'min': 0.05,
+            'max': pround(0.1 * ah, 0.05),
+            'start': pround(0.02 * ah, 0.05),
+            'step': 0.05,
+            'decimals': 2
+        }, {'min': 0.05, 'max': pround(0.1 * ah, 0.05), 'step': 0.05, 'decimals': 2}, true);
+        initSliderInput('dischargeExtraPause', 'seconds', {
+            'max': 300,
+            'start': 10,
+        }, {'max': 300});
+        initSliderInput('dischargeExtraHours', 'hours', {
+            'min': 0.5,
+            'max': 5,
+            'start': 0.5,
+            'step': 0.5,
+            'decimals': 1
+        }, {'min': 0.5, 'max': 5, 'step': 0.5, 'decimals': 1});
+
+        initTrigger('dischargeExtraTrigger', 'dischargeExtraParamDiv');
+
+    }
+
+    function initServiceCharge() {
+
+        initTrigger('serviceChargeTrigger', 'serviceChargeParamDiv');
+
+        initPre('service');
+        initCharge('service');
+        initExtra('service');
+
+        initSliderInput('cyclesCount', 'count');
+
+    }
+
     function initModalForm(type) {
         switch (type) {
             case 'charge':
@@ -159,6 +229,12 @@
                 initCharge();
                 initExtra();
                 initMisc();
+                break;
+            case 'service':
+                ah = Profile.service.ah;
+                initDischarge();
+                initDischargeExtra();
+                initServiceCharge();
                 break;
         }
     }

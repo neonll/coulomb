@@ -22,6 +22,9 @@
                 <a class="nav-link" href="javascript:;" data-toggle="modal" data-target="#modalChargeForm">Заряд</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="javascript:;" data-toggle="modal" data-target="#modalServiceForm">Сервис</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="javascript:;" data-toggle="modal" data-target="#modalPreferences">Настройки</a>
             </li>
 

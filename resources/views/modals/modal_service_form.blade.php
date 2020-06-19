@@ -39,7 +39,7 @@
             </div>
             <div class="modal-body">
                 <form id="formServiceForm">
-{{--                    @include('modals.form_charge_form')--}}
+                    @include('modals.form_service_form')
                 </form>
             </div>
             <div class="modal-footer justify-content-start">

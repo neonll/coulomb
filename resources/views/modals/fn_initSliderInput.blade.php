@@ -18,7 +18,7 @@
                         'decimals': 0
                     };
                     sliderParamsLimits = {
-                        'min': 1,
+                        'min': 0,
                         'max': 48,
                     };
                     break;
@@ -31,7 +31,7 @@
                         'decimals': 1
                     };
                     sliderParamsLimits = {
-                        'min': 3,
+                        'min': 0.05,
                         'max': 16.5,
                     };
                     break;
@@ -100,6 +100,19 @@
                         'max': 200,
                     };
                     break;
+                case 'count':
+                    sliderParamsDefault = {
+                        'start': 3,
+                        'step': 1,
+                        'min': 1,
+                        'max': 10,
+                        'decimals': 0
+                    };
+                    sliderParamsLimits = {
+                        'min': 1,
+                        'max': 10,
+                    };
+                    break;
             }
 
             sliderStart = 'start' in sliderParams ? sliderParams.start : sliderParamsDefault.start;
@@ -128,7 +141,7 @@
                         'postfix': 'ч.'
                     };
                     inputParamsLimits = {
-                        'min': 1,
+                        'min': 0,
                         'max': 48,
                     };
                     break;
@@ -141,7 +154,7 @@
                         'postfix': 'В'
                     };
                     inputParamsLimits = {
-                        'min': 3,
+                        'min': 0.05,
                         'max': 16.5,
                     };
                     break;
@@ -208,6 +221,19 @@
                     inputParamsLimits = {
                         'min': 1,
                         'max': 200,
+                    };
+                    break;
+                case 'count':
+                    inputParamsDefault = {
+                        'min': 1,
+                        'max': 10,
+                        'step': 1,
+                        'decimals': 0,
+                        'postfix': 'ц.'
+                    };
+                    inputParamsLimits = {
+                        'min': 1,
+                        'max': 10,
                     };
                     break;
             }
