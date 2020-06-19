@@ -115,10 +115,17 @@
                     break;
             }
 
+            if (controlId in Presets) {
+                sliderMin = Presets[controlId].min[ah-1];
+                sliderMax = Presets[controlId].max[ah-1];
+            }
+            else {
+                sliderMin = 'min' in sliderParams ? sliderParams.min : sliderParamsDefault.min;
+                sliderMax = 'max' in sliderParams ? sliderParams.max : sliderParamsDefault.max;
+            }
+
             sliderStart = 'start' in sliderParams ? sliderParams.start : sliderParamsDefault.start;
             sliderStep = 'step' in sliderParams ? sliderParams.step : sliderParamsDefault.step;
-            sliderMin = 'min' in sliderParams ? sliderParams.min : sliderParamsDefault.min;
-            sliderMax = 'max' in sliderParams ? sliderParams.max : sliderParamsDefault.max;
             sliderDecimals = 'decimals' in sliderParams ? sliderParams.decimals : sliderParamsDefault.decimals;
 
             let sliderMinLimit = sliderParamsLimits.min;
@@ -238,8 +245,15 @@
                     break;
             }
 
-            inputMin = 'min' in inputParams ? inputParams.min : inputParamsDefault.min;
-            inputMax = 'max' in inputParams ? inputParams.max : inputParamsDefault.max;
+            if (controlId in Presets) {
+                inputMin = Presets[controlId].min[ah-1];
+                inputMax = Presets[controlId].max[ah-1];
+            }
+            else {
+                inputMin = 'min' in inputParams ? inputParams.min : inputParamsDefault.min;
+                inputMax = 'max' in inputParams ? inputParams.max : inputParamsDefault.max;
+            }
+
             inputStep = 'step' in inputParams ? inputParams.step : inputParamsDefault.step;
             inputDecimals = 'decimals' in inputParams ? inputParams.decimals : inputParamsDefault.decimals;
             inputPostfix = 'postfix' in inputParams ? inputParams.postfix : inputParamsDefault.postfix;

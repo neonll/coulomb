@@ -23,10 +23,10 @@
     function initPre(pre = '') {
         initSliderInput(pre + 'preParamV', 'v');
         initSliderInput(pre + 'preParamT', 'minutes');
-        initSliderInput(pre + 'preCurMax', 'a', {'max': pround(0.1 * ah, 0.05), 'start': pround(0.05 * ah, 0.05)}, {'max': pround(0.1 * ah, 0.05)}, true);
+        initSliderInput(pre + 'preCurMax', 'a', {'start': pround(0.05 * ah, 0.05)}, {}, true);
         initSliderInput(pre + 'preDurImp', 'seconds');
         initSliderInput(pre + 'prePauseImp', 'seconds');
-        initSliderInput(pre + 'preConstCur', 'a', {'max': pround(0.075 * ah, 0.05), 'start': pround(0.05 * ah, 0.05)}, {'max': pround(0.075 * ah, 0.05)}, true);
+        initSliderInput(pre + 'preConstCur', 'a', {'start': pround(0.05 * ah, 0.05)}, {}, true);
 
         initTrigger(pre + 'preTrigger', pre + 'preParamDiv');
         initTrigger(pre + 'preType', pre + 'preParamT', pre + 'preParamV', 'времени', 'напряжению');
@@ -50,30 +50,24 @@
             'decimals': 2
         }, {'min': 13.4, 'max': 14.7, 'step': 0.05, 'decimals': 2});
         initSliderInput(pre + 'chargeAMax', 'a', {
-            'min': 0.1,
-            'max': pround(0.2 * ah, 0.05),
             'start': pround(0.1 * ah, 0.05),
             'step': 0.05,
             'decimals': 2
-        }, {'min': 0.1, 'max': pround(0.2 * ah, 0.05), 'step': 0.05, 'decimals': 2}, true);
+        }, {'step': 0.05, 'decimals': 2}, true);
 
         initSliderInput(pre + 'asymADischarge', 'a', {
-            'min': 0.05,
-            'max': pround(0.03 * ah, 0.05),
             'start': pround(0.01 * ah, 0.05),
             'step': 0.05,
             'decimals': 2
-        }, {'min': 0.05, 'max': pround(0.03 * ah, 0.05), 'step': 0.05, 'decimals': 2}, true);
+        }, {'step': 0.05, 'decimals': 2}, true);
         initSliderInput(pre + 'asymDur', 'seconds', {'min': 5, 'max': 25, 'start': 5}, {'min': 5, 'max': 25});
         initSliderInput(pre + 'asymRatio', 'percent');
 
         initSliderInput(pre + 'chargeEndParamA', 'a', {
-            'min': 0.05,
-            'max': pround(0.015 * ah, 0.05),
             'start': pround(0.01 * ah, 0.05),
             'step': 0.05,
             'decimals': 2
-        }, {'min': 0.05, 'max': pround(0.015 * ah, 0.05), 'step': 0.05, 'decimals': 2}, true);
+        }, {'step': 0.05, 'decimals': 2}, true);
         initSliderInput(pre + 'chargeEndParamATime', 'hours', {'start': 16, 'max': 48}, {'max': 48})
 
         initSliderInput(pre + 'chargeEndParamVTime', 'hours', {'start': 2, 'min': 0, 'max': 6}, {'min': 0, 'max': 6})
@@ -83,7 +77,7 @@
     }
 
     function initExtra(pre = '') {
-        initSliderInput(pre + 'extraChargeA', 'a', {'min': 0.05, 'max': pround(0.12 * ah, 0.05), 'start': pround(0.033 * ah, 0.05)}, {'min': 0.05, 'max': pround(0.12 * ah, 0.05)}, true);
+        initSliderInput(pre + 'extraChargeA', 'a', {'start': pround(0.033 * ah, 0.05)}, {}, true);
         initSliderInput(pre + 'extraChargePeriod', 'seconds', {'start': 20, 'max': 300}, {'max': 300});
         initSliderInput(pre + 'extraChargeT', 'hours', {'start': 5, 'max': 240}, {'max': 240})
 
@@ -132,7 +126,7 @@
             'step': 0.05,
             'decimals': 2
         }, {'min': 12.4, 'max': 14.8, 'step': 0.05, 'decimals': 2});
-        initSliderInput('postChargeStoreA', 'a', {'max': pround(0.01 * ah, 0.05), 'start': pround(0.007 * ah, 0.05)}, {'max': pround(0.01 * ah, 0.05)}, true);
+        initSliderInput('postChargeStoreA', 'a', {'start': pround(0.007 * ah, 0.05)}, {}, true);
         initSliderInput('postChargeRechargeV', 'v', {
             'start': 12.4,
             'min': 11.9,
@@ -162,12 +156,10 @@
         }, {'min': 7.3, 'max': 13, 'step': 0.05, 'decimals': 2});
 
         initSliderInput('dischargeA', 'a', {
-            'min': 0.05,
-            'max': pround(0.33 * ah, 0.05),
             'start': pround(0.05 * ah, 0.05),
             'step': 0.05,
             'decimals': 2
-        }, {'min': 0.05, 'max': pround(0.33 * ah, 0.05), 'step': 0.05, 'decimals': 2}, true);
+        }, {'step': 0.05, 'decimals': 2}, true);
 
         initSliderInput('dischargePause', 'hours', {
             'min': 0,
@@ -188,12 +180,10 @@
             'decimals': 2
         }, {'min': 0.05, 'max': 1, 'step': 0.05, 'decimals': 2});
         initSliderInput('dischargeExtraA', 'a', {
-            'min': 0.05,
-            'max': pround(0.1 * ah, 0.05),
             'start': pround(0.02 * ah, 0.05),
             'step': 0.05,
             'decimals': 2
-        }, {'min': 0.05, 'max': pround(0.1 * ah, 0.05), 'step': 0.05, 'decimals': 2}, true);
+        }, {'step': 0.05, 'decimals': 2}, true);
         initSliderInput('dischargeExtraPause', 'seconds', {
             'max': 300,
             'start': 10,

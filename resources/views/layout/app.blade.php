@@ -81,8 +81,6 @@
     </script>
 @endif
 
-@include('modals.fn_checkState')
-
 <script>
     // Устранение конфликта между modal и swal
     $.fn.modal.Constructor.prototype._enforceFocus = function() {};
@@ -93,6 +91,10 @@
 
     let Profile = {};
 </script>
+
+@include('modals.fn_checkState')
+
+@include('modals.fn_paramsPresets')
 
 @include('modals.fn_initSelectProfile')
 @include('modals.fn_getProfiles')
